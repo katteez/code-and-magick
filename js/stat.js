@@ -44,7 +44,7 @@ window.renderStatistics = function (ctx, names, times) {
     var columnY = ctx.canvas.clientHeight - columnHeight - 60;
 
     ctx.fillStyle = '#000000';
-    ctx.fillText((times[i] / 1000).toFixed(0), columnX + columnIndent * i, columnY - 15);
+    ctx.fillText(times[i].toFixed(0), columnX + columnIndent * i, columnY - 15);
 
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
