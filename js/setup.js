@@ -75,7 +75,7 @@ var closeSetupWindow = function () {
   setupSubmit.removeEventListener('keydown', closeSetupWindowByEnterKey);
 };
 
-setupOpen.addEventListener('click', function (event) {
+setupOpen.addEventListener('click', function () {
   showSetupWindow();
 });
 
