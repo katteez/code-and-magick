@@ -33,27 +33,29 @@ var fireballColors = [
 var ENTER_KEY_CODE = 13;
 var ESCAPE_KEY_CODE = 27;
 
-var isPressedEnterKey = function (event) {
+var isEnterKeyPressed = function (event) {
   return event.keyCode && event.keyCode === ENTER_KEY_CODE;
 };
 
-var isPressedEscKey = function (event) {
+var isEscKeyPressed = function (event) {
   return event.keyCode && event.keyCode === ESCAPE_KEY_CODE;
 };
 
 var closeSetupWindowByEnterKey = function (event) {
-  if (isPressedEnterKey(event)) {
+  if (isEnterKeyPressed(event)) {
     closeSetupWindow();
   }
 };
 
 var closeSetupWindowByEscKey = function (event) {
-  if (isPressedEscKey(event)) {
+  if (isEscKeyPressed(event)) {
     closeSetupWindow();
   }
 };
 
 var showSetupWindow = function () {
+  setupOpen.setAttribute('aria-pressed', true);
+  setupClose.setAttribute('aria-pressed', false);
   setupWindow.classList.remove('invisible');
   document.addEventListener('keydown', closeSetupWindowByEscKey);
   setupClose.addEventListener('click', closeSetupWindow);
@@ -63,6 +65,8 @@ var showSetupWindow = function () {
 };
 
 var closeSetupWindow = function () {
+  setupClose.setAttribute('aria-pressed', true);
+  setupOpen.setAttribute('aria-pressed', false);
   setupWindow.classList.add('invisible');
   document.removeEventListener('keydown', closeSetupWindowByEscKey);
   setupClose.removeEventListener('click', closeSetupWindow);
@@ -71,12 +75,12 @@ var closeSetupWindow = function () {
   setupSubmit.removeEventListener('keydown', closeSetupWindowByEnterKey);
 };
 
-setupOpen.addEventListener('click', function () {
+setupOpen.addEventListener('click', function (event) {
   showSetupWindow();
 });
 
 setupOpen.addEventListener('keydown', function (event) {
-  if (isPressedEnterKey(event)) {
+  if (isEnterKeyPressed(event)) {
     showSetupWindow();
   }
 });
