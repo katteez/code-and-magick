@@ -26,17 +26,17 @@
   <div class="demo"></div>
 
   <div class="setup-open" role="button" aria-pressed="false">
-    <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="0">
+    <img src="./img/user-1.jpg" class="setup-open-icon" tabindex="1">
   </div>
 </header>
 
 <div class="overlay setup invisible" role="dialog" aria-labelledby="Редактирование персонажа">
   <form class="setup-wizard-form">
-    <span class="setup-close" role="button" aria-pressed="false" tabindex="0">&times;</span>
+    <span class="setup-close" role="button" aria-pressed="false" tabindex="3">&times;</span>
 
     <div class="setup-user">
       <img class="setup-user-pic" src="./img/user-1.jpg" />
-      <input type="text" class="setup-user-name" value="Синий Пендальф" maxlength="50" required />
+      <input type="text" class="setup-user-name" value="Синий Пендальф" maxlength="50" tabindex="1" required />
     </div>
 
     <div class="setup-wizard-appearance">
@@ -98,7 +98,7 @@
       <div class="setup-artifacts-cell"></div>
     </div>
 
-    <button class="button setup-submit">Сохранить</button>
+    <button class="button setup-submit" tabindex="2">Сохранить</button>
   </form>
 </div>
 
