@@ -1,9 +1,10 @@
 'use strict';
 
 var setupOpen = document.querySelector('.setup-open');
-var setupClose = document.querySelector('.setup-close');
 var setupWindow = document.querySelector('.setup');
-var wizard = document.querySelector('#wizard');
+var setupClose = setupWindow.querySelector('.setup-close');
+var setupSubmit = setupWindow.querySelector('.setup-submit');
+var wizard = setupWindow.querySelector('#wizard');
 var wizardCoat = wizard.querySelector('#wizard-coat');
 var wizardCoatColors = [
   'rgb(101, 137, 164)',
@@ -21,7 +22,7 @@ var wizardEyesColors = [
   'yellow',
   'green'
 ];
-var fireball = document.querySelector('.setup-fireball-wrap');
+var fireball = setupWindow.querySelector('.setup-fireball-wrap');
 var fireballColors = [
   '#ee4830',
   '#30a8ee',
@@ -29,13 +30,59 @@ var fireballColors = [
   '#e848d5',
   '#e6e848'
 ];
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
+
+var isEnterKeyPressed = function (event) {
+  return event.keyCode && event.keyCode === ENTER_KEY_CODE;
+};
+
+var isEscKeyPressed = function (event) {
+  return event.keyCode && event.keyCode === ESCAPE_KEY_CODE;
+};
+
+var closeSetupWindowByEnterKey = function (event) {
+  if (isEnterKeyPressed(event)) {
+    closeSetupWindow();
+  }
+};
+
+var closeSetupWindowByEscKey = function (event) {
+  if (isEscKeyPressed(event)) {
+    closeSetupWindow();
+  }
+};
+
+var showSetupWindow = function () {
+  setupOpen.setAttribute('aria-pressed', true);
+  setupClose.setAttribute('aria-pressed', false);
+  setupWindow.classList.remove('invisible');
+  document.addEventListener('keydown', closeSetupWindowByEscKey);
+  setupClose.addEventListener('click', closeSetupWindow);
+  setupClose.addEventListener('keydown', closeSetupWindowByEnterKey);
+  setupSubmit.addEventListener('click', closeSetupWindow);
+  setupSubmit.addEventListener('keydown', closeSetupWindowByEnterKey);
+};
+
+var closeSetupWindow = function () {
+  setupClose.setAttribute('aria-pressed', true);
+  setupOpen.setAttribute('aria-pressed', false);
+  setupWindow.classList.add('invisible');
+  document.removeEventListener('keydown', closeSetupWindowByEscKey);
+  setupClose.removeEventListener('click', closeSetupWindow);
+  setupClose.removeEventListener('keydown', closeSetupWindowByEnterKey);
+  setupSubmit.removeEventListener('click', closeSetupWindow);
+  setupSubmit.removeEventListener('keydown', closeSetupWindowByEnterKey);
+};
 
 setupOpen.addEventListener('click', function () {
-  setupWindow.classList.remove('invisible');
+  showSetupWindow();
 });
 
-setupClose.addEventListener('click', function () {
-  setupWindow.classList.add('invisible');
+setupOpen.addEventListener('keydown', function (event) {
+  if (isEnterKeyPressed(event)) {
+    showSetupWindow();
+  }
 });
 
 var getNextArrayItem = function (arr) {
