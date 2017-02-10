@@ -85,27 +85,6 @@ setupOpen.addEventListener('keydown', function (event) {
   }
 });
 
-var getNextArrayItem = function (arr) {
-  if (isNaN(arr.$index)) {
-    arr.$index = -1;
-  }
-  arr.$index = ++arr.$index % arr.length;
-  return arr[arr.$index];
-};
-
-var getRandomArrayItem = function (arr) {
-  var index = Math.floor(Math.random() * arr.length);
-  return arr[index];
-};
-
-wizardCoat.addEventListener('click', function () {
-  wizardCoat.style.fill = getNextArrayItem(wizardCoatColors);
-});
-
-wizardEyes.addEventListener('click', function () {
-  wizardEyes.style.fill = getRandomArrayItem(wizardEyesColors);
-});
-
-fireball.addEventListener('click', function () {
-  fireball.style.backgroundColor = getRandomArrayItem(fireballColors);
-});
+window.colorizeElement(wizardCoat, wizardCoatColors, 'fill');
+window.colorizeElement(wizardEyes, wizardEyesColors, 'fill');
+window.colorizeElement(fireball, fireballColors, 'backgroundColor');
