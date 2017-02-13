@@ -1,15 +1,24 @@
 'use strict';
 
-window.utils = {
-  getRandomElement: function (arr) {
+window.getRandomElementExcept = (function () {
+  var getRandomElement = function (arr) {
     var randomElementIndex = Math.floor(Math.random() * arr.length);
     return arr[randomElementIndex];
-  },
-  getRandomElementExcept: function (arr, arrCurrentElement) {
+  };
+
+  return function (arr, arrCurrentElement) {
     var arrRandomElement;
-    do {
-      arrRandomElement = window.utils.getRandomElement(arr);
-    } while (arrRandomElement === arrCurrentElement);
+    var arrExceptRepeatingElements = [];
+
+    // Создаем новый массив, равный переданному,
+    // но без повторяющихся элементов и без текущего элемента
+    for (var i = 0; i < arr.length; i++) {
+      if (arrExceptRepeatingElements.indexOf(arr[i]) === -1 && arr[i] !== arrCurrentElement) {
+        arrExceptRepeatingElements.push(arr[i]);
+      }
+    }
+
+    arrRandomElement = getRandomElement(arrExceptRepeatingElements);
     return arrRandomElement;
-  }
-};
+  };
+})();
