@@ -2,10 +2,8 @@
 
 (function () {
   var setupOpen = document.querySelector('.setup-open');
+  var setupOpenButton = document.querySelector('.setup-open-icon');
   var setupWindow = document.querySelector('.setup');
-  var setupClose = setupWindow.querySelector('.setup-close');
-  var setupSubmit = setupWindow.querySelector('.setup-submit');
-
   var wizard = setupWindow.querySelector('#wizard');
   var wizardCoat = wizard.querySelector('#wizard-coat');
   var wizardCoatColors = [
@@ -32,63 +30,35 @@
     '#e848d5',
     '#e6e848'
   ];
+  var elementCurrentColor;
 
-  var ENTER_KEY_CODE = 13;
-  var ESCAPE_KEY_CODE = 27;
-
-  var isEnterKeyPressed = function (event) {
-    return event.keyCode && event.keyCode === ENTER_KEY_CODE;
+  var focusSetupOpenButton = function () {
+    setupOpenButton.focus();
   };
-
-  var isEscKeyPressed = function (event) {
-    return event.keyCode && event.keyCode === ESCAPE_KEY_CODE;
-  };
-
-  var closeSetupWindowByEnterKey = function (event) {
-    if (isEnterKeyPressed(event)) {
-      closeSetupWindow();
-    }
-  };
-
-  var closeSetupWindowByEscKey = function (event) {
-    if (isEscKeyPressed(event)) {
-      closeSetupWindow();
-    }
-  };
-
-  var closeSetupWindow = function () {
-    setupClose.setAttribute('aria-pressed', true);
-    setupOpen.setAttribute('aria-pressed', false);
-    setupWindow.classList.add('invisible');
-    document.removeEventListener('keydown', closeSetupWindowByEscKey);
-    setupClose.removeEventListener('click', closeSetupWindow);
-    setupClose.removeEventListener('keydown', closeSetupWindowByEnterKey);
-    setupSubmit.removeEventListener('click', closeSetupWindow);
-    setupSubmit.removeEventListener('keydown', closeSetupWindowByEnterKey);
-  };
-
-  var showSetupWindow = function () {
-    setupOpen.setAttribute('aria-pressed', true);
-    setupClose.setAttribute('aria-pressed', false);
-    setupWindow.classList.remove('invisible');
-    document.addEventListener('keydown', closeSetupWindowByEscKey);
-    setupClose.addEventListener('click', closeSetupWindow);
-    setupClose.addEventListener('keydown', closeSetupWindowByEnterKey);
-    setupSubmit.addEventListener('click', closeSetupWindow);
-    setupSubmit.addEventListener('keydown', closeSetupWindowByEnterKey);
-  };
-
-  setupOpen.addEventListener('click', function () {
-    showSetupWindow();
-  });
 
   setupOpen.addEventListener('keydown', function (event) {
-    if (isEnterKeyPressed(event)) {
-      showSetupWindow();
+    if (window.keydownHandler.isEnterKeyPressed(event)) {
+      window.enableSetup(focusSetupOpenButton);
     }
   });
 
-  window.colorizeElement(wizardCoat, wizardCoatColors, 'fill');
-  window.colorizeElement(wizardEyes, wizardEyesColors, 'fill');
-  window.colorizeElement(fireball, fireballColors, 'backgroundColor');
+  setupOpen.addEventListener('click', function () {
+    window.enableSetup();
+  });
+
+  var changeColor = function (element, colors, property) {
+    elementCurrentColor = element.style[property];
+    elementCurrentColor = window.getRandomElementExcept(colors, elementCurrentColor);
+    element.style[property] = elementCurrentColor;
+  };
+
+  window.colorizeElement(wizardCoat, function () {
+    changeColor(wizardCoat, wizardCoatColors, 'fill');
+  });
+  window.colorizeElement(wizardEyes, function () {
+    changeColor(wizardEyes, wizardEyesColors, 'fill');
+  });
+  window.colorizeElement(fireball, function () {
+    changeColor(fireball, fireballColors, 'backgroundColor');
+  });
 })();
