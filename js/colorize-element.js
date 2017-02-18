@@ -1,25 +1,17 @@
 'use strict';
 
-window.colorizeElement = (function () {
-  var ENTER_KEY_CODE = 13;
-
-  var isEnterKeyPressed = function (event) {
-    return event.keyCode && event.keyCode === ENTER_KEY_CODE;
+window.colorizeElement = function (element, colors, elementCurrentColor, changeColor) {
+  var getColor = function () {
+    elementCurrentColor = window.getRandomElementExcept(colors, elementCurrentColor);
   };
-
-  return function (element, colors, property) {
-    var currentColor = element.style[property];
-
-    var changeColor = function () {
-      currentColor = window.getRandomElementExcept(colors, currentColor);
-      element.style[property] = currentColor;
-    };
-
-    element.addEventListener('click', changeColor);
-    element.addEventListener('keydown', function () {
-      if (isEnterKeyPressed(event)) {
-        changeColor();
-      }
-    });
-  };
-})();
+  element.addEventListener('click', function () {
+    getColor();
+    changeColor(element, elementCurrentColor);
+  });
+  element.addEventListener('keydown', function () {
+    if (window.keydownHandler.isEnterKeyPressed(event)) {
+      getColor();
+      changeColor(element, elementCurrentColor);
+    }
+  });
+};
