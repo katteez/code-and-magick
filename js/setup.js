@@ -6,6 +6,8 @@
   var setupWindow = document.querySelector('.setup');
   var wizard = setupWindow.querySelector('#wizard');
   var wizardCoat = wizard.querySelector('#wizard-coat');
+  var wizardEyes = wizard.querySelector('#wizard-eyes');
+  var fireball = setupWindow.querySelector('.setup-fireball-wrap');
   var wizardCoatColors = [
     'rgb(101, 137, 164)',
     'rgb(241, 43, 107)',
@@ -14,7 +16,6 @@
     'rgb(215, 210, 55)',
     'rgb(0, 0, 0)'
   ];
-  var wizardEyes = wizard.querySelector('#wizard-eyes');
   var wizardEyesColors = [
     'black',
     'red',
@@ -22,7 +23,6 @@
     'yellow',
     'green'
   ];
-  var fireball = setupWindow.querySelector('.setup-fireball-wrap');
   var fireballColors = [
     '#ee4830',
     '#30a8ee',
@@ -30,7 +30,9 @@
     '#e848d5',
     '#e6e848'
   ];
-  var elementCurrentColor;
+  var wizardCoatCurrentColor = wizardCoat.style.fill;
+  var wizardEyesCurrentColor = window.getComputedStyle(wizardEyes).fill;
+  var fireballCurrentColor = window.getComputedStyle(fireball).backgroundColor;
 
   var focusSetupOpenButton = function () {
     setupOpenButton.focus();
@@ -46,19 +48,14 @@
     window.enableSetup();
   });
 
-  var changeColor = function (element, colors, property) {
-    elementCurrentColor = element.style[property];
-    elementCurrentColor = window.getRandomElementExcept(colors, elementCurrentColor);
-    element.style[property] = elementCurrentColor;
+  var changeFillColor = function (element, color) {
+    element.style.fill = color;
+  };
+  var changeBackgroundColor = function (element, color) {
+    element.style.backgroundColor = color;
   };
 
-  window.colorizeElement(wizardCoat, function () {
-    changeColor(wizardCoat, wizardCoatColors, 'fill');
-  });
-  window.colorizeElement(wizardEyes, function () {
-    changeColor(wizardEyes, wizardEyesColors, 'fill');
-  });
-  window.colorizeElement(fireball, function () {
-    changeColor(fireball, fireballColors, 'backgroundColor');
-  });
+  window.colorizeElement(wizardCoat, wizardCoatColors, wizardCoatCurrentColor, changeFillColor);
+  window.colorizeElement(wizardEyes, wizardEyesColors, wizardEyesCurrentColor, changeFillColor);
+  window.colorizeElement(fireball, fireballColors, fireballCurrentColor, changeBackgroundColor);
 })();

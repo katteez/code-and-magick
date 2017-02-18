@@ -35,6 +35,7 @@ window.enableSetup = (function () {
   };
 
   var showSetupWindow = function (callback) {
+    onSetupClose = callback;
     setupOpen.setAttribute('aria-pressed', true);
     setupClose.setAttribute('aria-pressed', false);
     setupWindow.classList.remove('invisible');
@@ -43,7 +44,6 @@ window.enableSetup = (function () {
     setupClose.addEventListener('keydown', closeSetupWindowByEnterKey);
     setupSubmit.addEventListener('click', closeSetupWindow);
     setupSubmit.addEventListener('keydown', closeSetupWindowByEnterKey);
-    onSetupClose = callback;
   };
 
   return showSetupWindow;

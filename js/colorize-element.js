@@ -1,10 +1,17 @@
 'use strict';
 
-window.colorizeElement = function (element, callback) {
-  element.addEventListener('click', callback);
+window.colorizeElement = function (element, colors, elementCurrentColor, changeColor) {
+  var getColor = function () {
+    elementCurrentColor = window.getRandomElementExcept(colors, elementCurrentColor);
+  };
+  element.addEventListener('click', function () {
+    getColor();
+    changeColor(element, elementCurrentColor);
+  });
   element.addEventListener('keydown', function () {
     if (window.keydownHandler.isEnterKeyPressed(event)) {
-      callback();
+      getColor();
+      changeColor(element, elementCurrentColor);
     }
   });
 };
