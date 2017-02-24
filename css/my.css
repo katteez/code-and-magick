@@ -1,0 +1,11 @@
+.setup-similar {
+  position: absolute;
+  left: 50px;
+  bottom: 30px;
+  width: 250px;
+  height: 70px;
+}
+
+.setup-submit {
+  left: 74%;
+}
