@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/htmlacademy-javascript/20096-code-and-magick",
   "devDependencies": {
-    "eslint": "5.13.0",
+    "eslint": "6.5.1",
     "eslint-config-htmlacademy": "0.5.2"
   },
   "dependencies": {},
