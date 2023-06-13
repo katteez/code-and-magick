@@ -36,7 +36,7 @@
   var fireballCurrentColor = window.getComputedStyle(fireball).backgroundColor;
 
   var wizards = [];
-  var WIZARDS_DATA_URL = 'https://intensive-javascript-server-myophkugvq.now.sh/code-and-magick/data';
+  var WIZARDS_DATA_URL = 'https://28.javascript.pages.academy/code-and-magick/data';
 
   var focusSetupOpenButton = function () {
     setupOpenButton.focus();

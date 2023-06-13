@@ -625,6 +625,10 @@ input[type=radio]:checked + .review-mark-label {
   border-bottom: solid 15px #1cb34d;
 }
 
+.setup-wizard g:focus {
+  outline: none;
+}
+
 .setup-fireball-wrap {
   position: absolute;
   left: 300px;
